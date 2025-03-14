@@ -18,7 +18,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from rest_framework.routers import DefaultRouter
-from api.views import ValidateWordView
+from api.views.validate_word_view import ValidateWordView
 
 router = DefaultRouter()
 
