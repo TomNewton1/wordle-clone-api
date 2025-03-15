@@ -9,13 +9,13 @@ def client():
     return APIClient()
 
 
-@patch("api.views.WordService")
+@patch("api.views.validate_word_view.WordService")
 def test_get_not_allowed(MockWordService, client):
     response = client.get("/api/validate-word/")
     assert response.status_code == status.HTTP_405_METHOD_NOT_ALLOWED
 
 
-@patch("api.views.WordService")
+@patch("api.views.validate_word_view.WordService")
 def test_validate_word_post(MockWordService, client):
     # Mock the get_word_for_today method to return a specific word
     MockWordService.return_value.get_word_for_today.return_value = "apple"
@@ -28,7 +28,7 @@ def test_validate_word_post(MockWordService, client):
         assert letter_status["status"] == "correct"
 
 
-@patch("api.views.WordService")
+@patch("api.views.validate_word_view.WordService")
 def test_validate_short_word(MockWordService, client):
     MockWordService.return_value.get_word_for_today.return_value = "apple"
 
@@ -37,7 +37,7 @@ def test_validate_short_word(MockWordService, client):
     assert response.status_code == status.HTTP_400_BAD_REQUEST
 
 
-@patch("api.views.WordService")
+@patch("api.views.validate_word_view.WordService")
 def test_validate_long_word(MockWordService, client):
     MockWordService.return_value.get_word_for_today.return_value = "apple"
 
