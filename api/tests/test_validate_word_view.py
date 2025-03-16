@@ -44,6 +44,7 @@ def test_validate_long_word(MockWordService, client):
     response = client.post("/api/validate-word/", {"word": "bananas"})
     assert response.status_code == status.HTTP_400_BAD_REQUEST
 
+
 @patch("api.views.validate_word_view.WordService")
 def test_validate_word_post(MockWordService, client):
     MockWordService.return_value.get_word_for_today.return_value = "apple"
@@ -62,6 +63,7 @@ def test_validate_word_post(MockWordService, client):
 
     assert response.data == expected_response
 
+
 @patch("api.views.validate_word_view.WordService")
 def test_validate_peach(MockWordService, client):
     MockWordService.return_value.get_word_for_today.return_value = "apple"
@@ -79,6 +81,7 @@ def test_validate_peach(MockWordService, client):
     ]
 
     assert response.data == expected_response
+
 
 @patch("api.views.validate_word_view.WordService")
 def test_validate_grape(MockWordService, client):
