@@ -46,7 +46,7 @@ def test_validate_long_word(MockWordService, client):
 
 
 @patch("api.views.validate_word_view.WordService")
-def test_validate_word_post(MockWordService, client):
+def test_validate_correct_word(MockWordService, client):
     MockWordService.return_value.get_word_for_today.return_value = "apple"
 
     response = client.post("/api/validate-word/", {"word": "apple"})
