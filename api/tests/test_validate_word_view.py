@@ -17,7 +17,6 @@ def test_get_not_allowed(MockWordService, client):
 
 @patch("api.views.validate_word_view.WordService")
 def test_validate_word_post(MockWordService, client):
-    # Mock the get_word_for_today method to return a specific word
     MockWordService.return_value.get_word_for_today.return_value = "apple"
 
     # Test a valid word
@@ -44,3 +43,57 @@ def test_validate_long_word(MockWordService, client):
     # Test a word longer than 5 letters
     response = client.post("/api/validate-word/", {"word": "bananas"})
     assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+@patch("api.views.validate_word_view.WordService")
+def test_validate_word_post(MockWordService, client):
+    MockWordService.return_value.get_word_for_today.return_value = "apple"
+
+    response = client.post("/api/validate-word/", {"word": "apple"})
+    assert response.status_code == status.HTTP_200_OK
+    assert len(response.data) == 5
+
+    expected_response = [
+        {"letter": "A", "status": "correct"},
+        {"letter": "P", "status": "correct"},
+        {"letter": "P", "status": "correct"},
+        {"letter": "L", "status": "correct"},
+        {"letter": "E", "status": "correct"},
+    ]
+
+    assert response.data == expected_response
+
+@patch("api.views.validate_word_view.WordService")
+def test_validate_peach(MockWordService, client):
+    MockWordService.return_value.get_word_for_today.return_value = "apple"
+
+    response = client.post("/api/validate-word/", {"word": "peach"})
+    assert response.status_code == status.HTTP_200_OK
+    assert len(response.data) == 5
+
+    expected_response = [
+        {"letter": "P", "status": "present"},
+        {"letter": "E", "status": "present"},
+        {"letter": "A", "status": "present"},
+        {"letter": "C", "status": "incorrect"},
+        {"letter": "H", "status": "incorrect"},
+    ]
+
+    assert response.data == expected_response
+
+@patch("api.views.validate_word_view.WordService")
+def test_validate_grape(MockWordService, client):
+    MockWordService.return_value.get_word_for_today.return_value = "apple"
+
+    response = client.post("/api/validate-word/", {"word": "grape"})
+    assert response.status_code == status.HTTP_200_OK
+    assert len(response.data) == 5
+
+    expected_response = [
+        {"letter": "G", "status": "incorrect"},
+        {"letter": "R", "status": "incorrect"},
+        {"letter": "A", "status": "present"},
+        {"letter": "P", "status": "present"},
+        {"letter": "E", "status": "correct"},
+    ]
+
+    assert response.data == expected_response
