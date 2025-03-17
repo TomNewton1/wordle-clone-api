@@ -4,6 +4,8 @@
 
 This is the backend for a Wordle clone built using Django. It provides and API endpoint go validate a word provided by the client.
 
+This API should be run with the following React Frontend: [https://github.com/TomNewton1/wordle-clone](https://github.com/TomNewton1/wordle-clone)
+
 ## Prerequisites
 
 - Python 3.10+
