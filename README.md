@@ -6,6 +6,9 @@ This is the backend for a Wordle clone built using Django. It provides and API e
 
 This API should be run with the following React Frontend: [https://github.com/TomNewton1/wordle-clone](https://github.com/TomNewton1/wordle-clone)
 
+- You can add more words to the API by modifying the `words.txt` file.
+- Change the word of the day by deleting the `word_of_the_day.txt` file.
+
 ## Prerequisites
 
 - Python 3.10+
